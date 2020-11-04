@@ -1,0 +1,28 @@
+﻿<Properties StartupConfiguration="{D7629891-5F89-4124-8374-F3CDCA58FD0C}|Default">
+  <MonoDevelop.Ide.ItemProperties.SandScript PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="SandScript/Lexer/SandLexer.cs">
+    <Files>
+      <File FileName="SandScript/SourceCode.cs" Line="24" Column="10" />
+      <File FileName="SandScript/Lexer/SandLexer.cs" Line="93" Column="10" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="SandScript" expanded="True">
+            <Node name="SandScript" expanded="True">
+              <Node name="Lexer" expanded="True">
+                <Node name="SandLexer.cs" selected="True" />
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>
