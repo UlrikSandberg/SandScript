@@ -2,7 +2,6 @@ namespace SandScript.Lexer
 {
     public enum TokenType
     {
-        EOL, // "End of Line"
         EOF,  // "End of File",
         WhiteSpace, // " "
         Error, // "Error Token
@@ -59,9 +58,8 @@ namespace SandScript.Lexer
         BitwiseXor,
         Power,
         DoubleQuestion,
-        Question
-        
-        
+        Question,
+        NewLine
     }
 }
 

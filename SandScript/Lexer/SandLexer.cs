@@ -8,7 +8,7 @@ namespace SandScript.Lexer
 {
     public class SandLexer
     {
-        private readonly string[] _keywords = {"let"};
+        private readonly string[] _keywords = { Keywords.LET, Keywords.CLASS, Keywords.FUNCTION, Keywords.TRUE, Keywords.FALSE };
         private readonly LexerErrorSink _errorSink;
         private readonly SandscriptSyntaxConfiguration _syntaxConfiguration;
 
@@ -29,6 +29,14 @@ namespace SandScript.Lexer
         // Keep track of the current token being read
         private readonly StringBuilder _tokenBuilder;
 
+        public SandLexer(LexerErrorSink errorSink)
+        {
+            _errorSink = errorSink;
+            _syntaxConfiguration = SandscriptSyntaxConfiguration.Default();
+            _sourceCode = null;
+            _tokenBuilder = new StringBuilder();
+        }
+        
         public SandLexer(LexerErrorSink errorSink, SandscriptSyntaxConfiguration syntaxConfiguration)
         {
             _errorSink = errorSink;
@@ -400,7 +408,7 @@ namespace SandScript.Lexer
             AdvanceToNewLine();
             
             // Return the End of line token
-            return InstantiateToken(TokenType.EOL);
+            return InstantiateToken(TokenType.NewLine);
         }
 
         private Token ScanWhiteSpace()

@@ -13,9 +13,13 @@ namespace SandScript
 
             var text = File.ReadAllText(codeFile);
             
-            var virtualCompiler = new VirtualCompiler(text, SandscriptSyntaxConfiguration.OptionalSemicolon());
-
+            var virtualCompiler = new VirtualCompiler(text, SandscriptSyntaxConfiguration.Builder(ctx =>
+            {
+                ctx.IsSemicolonOptional = false;
+                ctx.IsRootLevelStatementsAllowed = true;
+            }));
             var virtualProgram = virtualCompiler.Compile();
+            
             
             // Use the virtual program to execute code which 
             

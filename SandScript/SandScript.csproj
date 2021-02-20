@@ -39,8 +39,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AST\SourceRoot.cs" />
+    <Compile Include="AST\SyntaxCategory.cs" />
+    <Compile Include="AST\SyntaxType.cs" />
+    <Compile Include="AST\SyntaxNode.cs" />
     <Compile Include="Extensions\CharExtensions.cs" />
     <Compile Include="Extensions\TokenExtensions.cs" />
+    <Compile Include="Lexer\Keywords.cs" />
     <Compile Include="Lexer\LexerError.cs" />
     <Compile Include="Lexer\LexerErrorSink.cs" />
     <Compile Include="Lexer\SandLexer.cs" />
@@ -51,6 +56,9 @@
     <Compile Include="Lexer\TokenCategory.cs" />
     <Compile Include="Lexer\TokenType.cs" />
     <Compile Include="Parser\SandParser.cs" />
+    <Compile Include="Parser\SandParser.Declarations.cs" />
+    <Compile Include="Parser\SandParser.Expressions.cs" />
+    <Compile Include="Parser\SandParser.Statements.cs" />
     <Compile Include="Parser\SyntaxException.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

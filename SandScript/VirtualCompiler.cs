@@ -1,6 +1,7 @@
 using System;
 using System.Security.Policy;
 using SandScript.Lexer;
+using SandScript.Parser;
 
 
 namespace SandScript
@@ -9,29 +10,26 @@ namespace SandScript
     {
         private readonly string _code;
         private readonly SandLexer _lexer;
-        private readonly LexerErrorSink _errorSink;
+        private readonly SandParser _parser;
         
         public VirtualCompiler(string code, SandscriptSyntaxConfiguration syntaxConfiguration)
         {
             _code = code;
-            _errorSink = new LexerErrorSink();
-            _lexer = new SandLexer(_errorSink, syntaxConfiguration);
+            var errorSink = new LexerErrorSink();
+            _lexer = new SandLexer(errorSink, syntaxConfiguration);
+            _parser = new SandParser(errorSink, syntaxConfiguration);
         }
 
         public VirtualProgram Compile()
         {
             // Tokenize the code
-            var tokens = _lexer.Tokenize(_code);
-            foreach (var token in tokens)
-            {
-                Console.WriteLine(token.ToString());
-            }
+            var sourceCode = new SourceCode(_code);
+            var tokens = _lexer.Tokenize(sourceCode);
+            var ast = _parser.ParseFile(sourceCode, tokens);
             
-            // Print out the tokens of this code
-            
-            // parse the tokens and return an AST
-            
-            
+            // return the ast as a virtual program... Attach additional properties to the virtual program to access fx.
+            // unity objects from the code
+
             return new VirtualProgram();
         }
     }

@@ -4,6 +4,10 @@ namespace SandScript.Extensions
 {
     public static class TokenExtensions
     {
+        public static bool IsTrivia(this Token token)
+        {
+            return token.TokenCategory == TokenCategory.Whitespace || token.TokenCategory == TokenCategory.Comment;
+        }
         public static TokenCategory AsTokenCategory(this TokenType token)
         {
             switch (token)
@@ -17,75 +21,75 @@ namespace SandScript.Extensions
                 case TokenType.Dot:
                     return TokenCategory.Punctuation;
 
-                /*case TokenKind.Equal:
-                case TokenKind.NotEqual:
-                case TokenKind.Not:
-                case TokenKind.LessThan:
-                case TokenKind.LessThanOrEqual:
-                case TokenKind.GreaterThan:
-                case TokenKind.GreaterThanOrEqual:
-                case TokenKind.Minus:
-                case TokenKind.MinusEqual:
-                case TokenKind.MinusMinus:
-                case TokenKind.Mod:
-                case TokenKind.ModEqual:
-                case TokenKind.Mul:
-                case TokenKind.MulEqual:
-                case TokenKind.Plus:
-                case TokenKind.PlusEqual:
-                case TokenKind.PlusPlus:
-                case TokenKind.Question:
-                case TokenKind.DoubleQuestion:
-                case TokenKind.DivEqual:
-                case TokenKind.Div:
-                case TokenKind.BooleanOr:
-                case TokenKind.BooleanAnd:
-                case TokenKind.BitwiseXorEqual:
-                case TokenKind.BitwiseXor:
-                case TokenKind.BitwiseOrEqual:
-                case TokenKind.BitwiseOr:
-                case TokenKind.BitwiseAndEqual:
-                case TokenKind.BitwiseAnd:
-                case TokenKind.BitShiftLeft:
-                case TokenKind.BitShiftRight:
-                case TokenKind.Assignment:
-                    return TokenCategory.Operator;*/
+                case TokenType.Equal:
+                case TokenType.NotEqual:
+                case TokenType.Not:
+                case TokenType.LessThan:
+                case TokenType.LessThanOrEqual:
+                case TokenType.GreaterThan:
+                case TokenType.GreaterThanOrEqual:
+                case TokenType.Minus:
+                case TokenType.MinusEqual:
+                case TokenType.MinusMinus:
+                case TokenType.Mod:
+                case TokenType.ModEqual:
+                case TokenType.MulMul:    
+                case TokenType.Mul:
+                case TokenType.MulEqual:
+                case TokenType.Plus:
+                case TokenType.PlusEqual:
+                case TokenType.PlusPlus:
+                case TokenType.Question:
+                case TokenType.DoubleQuestion:
+                case TokenType.DivideEqual:
+                case TokenType.Divide:
+                case TokenType.BoolOr:
+                case TokenType.BoolAnd:
+                case TokenType.BitwiseXorEqual:
+                case TokenType.BitwiseXor:
+                case TokenType.BitwiseOrEqual:
+                case TokenType.BitwiseOr:
+                case TokenType.BitwiseAndEqual:
+                case TokenType.BitwiseAnd:
+                case TokenType.BitShiftLeft:
+                case TokenType.BitShiftRight:
+                case TokenType.Power:    
+                case TokenType.Assignment:
+                    return TokenCategory.Operator;
 
-                /*case TokenKind.BlockComment:
-                case TokenKind.LineComment:
-                    return TokenCategory.Comment;*/
+                case TokenType.BlockComment:
+                case TokenType.LineComment:
+                    return TokenCategory.Comment;
 
-                /*case TokenKind.NewLine:
-                case TokenKind.WhiteSpace:
-                    return TokenCategory.WhiteSpace;*/
+                case TokenType.NewLine:
+                case TokenType.WhiteSpace:
+                    return TokenCategory.Whitespace;
 
-                /*case TokenKind.LeftBrace:
-                case TokenKind.LeftBracket:
-                case TokenKind.LeftParenthesis:
-                case TokenKind.RightBrace:
-                case TokenKind.RightBracket:
-                case TokenKind.RightParenthesis:
-                    return TokenCategory.Grouping;*/
+                case TokenType.LeftCurlyBracket:
+                case TokenType.LeftSquareBracket:
+                case TokenType.LeftParenthesis:
+                case TokenType.RightCurlyBracket:
+                case TokenType.RightSquareBracket:
+                case TokenType.RightParenthesis:
+                    return TokenCategory.Grouping;
 
-                /*case TokenKind.Identifier:
-                    return TokenCategory.Identifier;*/
+                case TokenType.Identifier:
+                    return TokenCategory.Identifier;
                 
-                /*case TokenKind.Keyword:
-                    return TokenCategory.Keyword;*/
+                case TokenType.Keyword:
+                    return TokenCategory.Keyword;
 
-                /*case TokenKind.StringLiteral:
-                case TokenKind.IntegerLiteral:
-                case TokenKind.FloatLiteral:
-                    return TokenCategory.Constant;*/
+                case TokenType.String:
+                case TokenType.Integer:
+                case TokenType.Float:
+                    return TokenCategory.Constant;
 
-                /*case TokenKind.Error:
-                    return TokenCategory.Invalid;*/
+                case TokenType.Error:
+                    return TokenCategory.Invalid;
 
-                /*default: 
-                    return TokenCategory.Unknown;*/
+                default: 
+                    return TokenCategory.Unknown;
             }
-
-            return TokenCategory.Unknown;
         }
     }
 }
