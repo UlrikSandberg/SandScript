@@ -1,28 +1,28 @@
 using System.Diagnostics.SymbolStore;
+using SandScript.Extensions;
 
 namespace SandScript.Lexer
 {
     public class Token
     {
-        public int Id { get; private set; }
-        public TokenType Type { get; private set; }
-        public TokenCategory Category { get; private set; }
-        public string Symbol { get; private set; }
-        public int Line { get; private set; }
-        public int Column { get; private set; }
-        
-        public Token(int id, TokenType type, string symbol, int line, int column)
+        public int Id { get; }
+        public TokenType Type { get; }
+        public string Symbol { get; }
+        public SourceSpan CodeSpan { get; }
+        public TokenCategory TokenCategory { get; }
+
+        public Token(int id, TokenType type, string symbol, SourceSpan codeSpan)
         {
             Id = id;
             Type = type;
             Symbol = symbol;
-            Line = line;
-            Column = column;
+            CodeSpan = codeSpan;
+            TokenCategory = type.AsTokenCategory();
         }
 
         public override string ToString()
         {
-            return $"ID: {Id} \t Type: {Type.ToString()} \t Line: {Line}[{Column}] \t Symbol: {Symbol}";
+            return $"ID: {Id} \t Type: {Type.ToString()} \t\t Line: {CodeSpan}] \t\t Symbol: {Symbol}";
         }
     }
 }

@@ -11,18 +11,21 @@ namespace SandScript
         private readonly SandLexer _lexer;
         private readonly LexerErrorSink _errorSink;
         
-        public VirtualCompiler(string code)
+        public VirtualCompiler(string code, SandscriptSyntaxConfiguration syntaxConfiguration)
         {
             _code = code;
             _errorSink = new LexerErrorSink();
-            _lexer = new SandLexer(_errorSink);
+            _lexer = new SandLexer(_errorSink, syntaxConfiguration);
         }
 
         public VirtualProgram Compile()
         {
             // Tokenize the code
             var tokens = _lexer.Tokenize(_code);
-            Console.WriteLine(tokens);
+            foreach (var token in tokens)
+            {
+                Console.WriteLine(token.ToString());
+            }
             
             // Print out the tokens of this code
             

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using SandScript.Lexer;
 
 namespace SandScript
 {
@@ -8,11 +9,11 @@ namespace SandScript
     {
         public static void Main(string[] args)
         {
-            var codeFile = "/Users/ulriksandberg/Projects/Unity/SandScript/SandScript/code.txt";
+            var codeFile = "/Users/ulriksandberg/Projects/SandScript/SandScript/code.txt";
 
             var text = File.ReadAllText(codeFile);
             
-            var virtualCompiler = new VirtualCompiler(text);
+            var virtualCompiler = new VirtualCompiler(text, SandscriptSyntaxConfiguration.OptionalSemicolon());
 
             var virtualProgram = virtualCompiler.Compile();
             

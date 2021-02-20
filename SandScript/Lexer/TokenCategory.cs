@@ -2,10 +2,15 @@ namespace SandScript.Lexer
 {
     public enum TokenCategory
     {
-        Separator,
+        Punctuation, // "->", "=>", ":", ";", ",", "."
+        Operator, // "=", "!=",
+        Comment,
+        Whitespace,
+        Grouping, // "{", "}", "[", "]", "(", ")"
         Identifier,
-        Operator,
         Keyword,
-        Number,
+        Constant,
+        Invalid,
+        Unknown
     }
 }
