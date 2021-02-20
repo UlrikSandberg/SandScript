@@ -1,6 +1,0 @@
-/Users/ulriksandberg/Projects/Unity/SandScript/SandScript/bin/Debug/SandScript.exe
-/Users/ulriksandberg/Projects/Unity/SandScript/SandScript/bin/Debug/SandScript.pdb
-/Users/ulriksandberg/Projects/Unity/SandScript/SandScript/obj/Debug/SandScript.csprojAssemblyReference.cache
-/Users/ulriksandberg/Projects/Unity/SandScript/SandScript/obj/Debug/SandScript.csproj.CoreCompileInputs.cache
-/Users/ulriksandberg/Projects/Unity/SandScript/SandScript/obj/Debug/SandScript.exe
-/Users/ulriksandberg/Projects/Unity/SandScript/SandScript/obj/Debug/SandScript.pdb
