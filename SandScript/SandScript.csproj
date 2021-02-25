@@ -39,11 +39,33 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AST\Declarations\ClassDeclaration.cs" />
+    <Compile Include="AST\Declarations\ConstructorDeclaration.cs" />
+    <Compile Include="AST\Declarations\Declaration.cs" />
+    <Compile Include="AST\Declarations\FieldDeclaration.cs" />
+    <Compile Include="AST\Declarations\MethodDeclaration.cs" />
+    <Compile Include="AST\Declarations\ParameterDeclaration.cs" />
+    <Compile Include="AST\Declarations\PropertyDeclaration.cs" />
+    <Compile Include="AST\Declarations\VariableDeclaration.cs" />
+    <Compile Include="AST\Expressions\Expression.cs" />
     <Compile Include="AST\SourceRoot.cs" />
+    <Compile Include="AST\Statements\BlockStatement.cs" />
+    <Compile Include="AST\Statements\BreakStatement.cs" />
+    <Compile Include="AST\Statements\CaseStatement.cs" />
+    <Compile Include="AST\Statements\ContinueStatement.cs" />
+    <Compile Include="AST\Statements\ElseStatement.cs" />
+    <Compile Include="AST\Statements\EmptyStatement.cs" />
+    <Compile Include="AST\Statements\ForStatement.cs" />
+    <Compile Include="AST\Statements\IfStatement.cs" />
+    <Compile Include="AST\Statements\ReturnStatement.cs" />
+    <Compile Include="AST\Statements\Statement.cs" />
+    <Compile Include="AST\Statements\SwitchStatement.cs" />
+    <Compile Include="AST\Statements\WhileStatement.cs" />
     <Compile Include="AST\SyntaxCategory.cs" />
     <Compile Include="AST\SyntaxType.cs" />
     <Compile Include="AST\SyntaxNode.cs" />
     <Compile Include="Extensions\CharExtensions.cs" />
+    <Compile Include="Extensions\SourceExtensions.cs" />
     <Compile Include="Extensions\TokenExtensions.cs" />
     <Compile Include="Lexer\Keywords.cs" />
     <Compile Include="Lexer\LexerError.cs" />
