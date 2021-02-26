@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using SandScript.AST;
 using SandScript.AST.Declarations;
+using SandScript.AST.Statements;
 using SandScript.Lexer;
 
 namespace SandScript.Parser
@@ -25,7 +27,7 @@ namespace SandScript.Parser
                 // Parse function declarations
                 if (_current == Keywords.FUNCTION)
                 {
-                    
+                    syntaxTree.Add(ParseMethodDeclaration());
                 }
             }
 
@@ -36,14 +38,18 @@ namespace SandScript.Parser
     
                 while (_current != TokenType.EOF)
                 {
-                    // Parse statements
+                    statements.Add(ParseStatement());
                 }
                 
-                // wrap the statements in anonumous block
+                syntaxTree.Add(new BlockStatement(CreateSpan(statementsStart), statements));
             }
             
-            
-            return null;
+            if (_current != TokenType.EOF)
+            {
+                AddError(Severity.Error, "Top-level statements are not permitted within the current options.", CreateSpan(_current.CodeSpan.Start, _tokens.Last().CodeSpan.End));
+            }
+
+            return new SourceRoot(CreateSpan(start), _sourceCode, syntaxTree);
         }
 
         private ClassDeclaration ParseClassDeclaration()
@@ -84,7 +90,7 @@ namespace SandScript.Parser
         {
             return _current.Symbol switch
             {
-                Keywords.LET => ParsePropertyDeclaration(),
+                Keywords.PROP => ParsePropertyDeclaration(),
                 Keywords.FUNCTION => ParseMethodDeclaration(),
                 Keywords.CONSTRUCTOR => ParseConstructorDeclaration(),
                 _ => ParseFieldDeclaration()

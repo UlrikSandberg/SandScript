@@ -14,5 +14,6 @@ namespace SandScript.Lexer
         public const string SWITCH = "switch";
         public const string RETURN = "return";
         public const string IF = "if";
+        public const string PROP = "prop";
     }
 }

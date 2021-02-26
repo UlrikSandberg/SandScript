@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using SandScript.AST;
 using SandScript.AST.Statements;
@@ -52,32 +53,32 @@ namespace SandScript.Parser
 
         private SyntaxNode ParseIfStatement()
         {
-
+            return null;
         }
 
         private SyntaxNode ParseDoWhileStatement()
         {
-            
+            return null;
         }
 
         private SyntaxNode ParseWhileStatement()
         {
-            
+            return null;
         }
 
         private SyntaxNode ParseForStatement()
         {
-            
+            return null;
         }
 
         private SyntaxNode ParseSwitchStatement()
         {
-            
+            return null;
         }
 
         private SyntaxNode ParseReturnStatement()
         {
-            
+            return null;
         }
     }
 }

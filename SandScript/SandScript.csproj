@@ -47,7 +47,17 @@
     <Compile Include="AST\Declarations\ParameterDeclaration.cs" />
     <Compile Include="AST\Declarations\PropertyDeclaration.cs" />
     <Compile Include="AST\Declarations\VariableDeclaration.cs" />
+    <Compile Include="AST\Expressions\ArrayAccessExpression.cs" />
+    <Compile Include="AST\Expressions\BinaryExpression.cs" />
+    <Compile Include="AST\Expressions\ConstantExpression.cs" />
     <Compile Include="AST\Expressions\Expression.cs" />
+    <Compile Include="AST\Expressions\IdentifierExpression.cs" />
+    <Compile Include="AST\Expressions\LambdaExpression.cs" />
+    <Compile Include="AST\Expressions\MethodCallExpression.cs" />
+    <Compile Include="AST\Expressions\NewExpression.cs" />
+    <Compile Include="AST\Expressions\ReferenceExpression.cs" />
+    <Compile Include="AST\Expressions\UnaryExpression.cs" />
+    <Compile Include="AST\Expressions\UnaryOperator.cs" />
     <Compile Include="AST\SourceRoot.cs" />
     <Compile Include="AST\Statements\BlockStatement.cs" />
     <Compile Include="AST\Statements\BreakStatement.cs" />
