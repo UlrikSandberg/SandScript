@@ -24,15 +24,13 @@ namespace SandScript.Parser
         private Expression ParseAssignmentExpression()
         {
             var left = ParseLogicalExpression();
-            if (_current.Type.IsAssignmentOperator())
-            {
-                var op = ParseBinaryOperator();
-                Expression right = ParseAssignmentExpression();
+            
+            if (!_current.Type.IsAssignmentOperator()) return left;
+            
+            var op = ParseBinaryOperator();
+            var right = ParseAssignmentExpression();
                 
-                return new BinaryExpression();
-            }
-
-            return left;
+            return new BinaryExpression(CreateSpan(left), left, right, op);
         }
 
         private BinaryOperator ParseBinaryOperator()
