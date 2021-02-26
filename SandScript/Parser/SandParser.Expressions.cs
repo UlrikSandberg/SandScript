@@ -1,4 +1,5 @@
 using SandScript.AST.Expressions;
+using SandScript.Extensions;
 using SandScript.Lexer;
 
 namespace SandScript.Parser
@@ -22,7 +23,29 @@ namespace SandScript.Parser
 
         private Expression ParseAssignmentExpression()
         {
-            var left = ParseLogical
+            var left = ParseLogicalExpression();
+            if (_current.Type.IsAssignmentOperator())
+            {
+                var op = ParseBinaryOperator();
+                Expression right = ParseAssignmentExpression();
+                
+                return new BinaryExpression();
+            }
+
+            return left;
+        }
+
+        private BinaryOperator ParseBinaryOperator()
+        {
+            var token = Ingest();
+            var binaryOperator = token.Type.AsBinaryOperator();
+            if (binaryOperator != BinaryOperator.Error)
+            {
+                return binaryOperator;
+            }
+            
+            _index--;
+            throw UnexpectedToken("Binary Operator");
         }
 
         private Expression ParseLogicalExpression()

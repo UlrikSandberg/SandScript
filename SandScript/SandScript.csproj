@@ -49,6 +49,7 @@
     <Compile Include="AST\Declarations\VariableDeclaration.cs" />
     <Compile Include="AST\Expressions\ArrayAccessExpression.cs" />
     <Compile Include="AST\Expressions\BinaryExpression.cs" />
+    <Compile Include="AST\Expressions\BinaryOperator.cs" />
     <Compile Include="AST\Expressions\ConstantExpression.cs" />
     <Compile Include="AST\Expressions\Expression.cs" />
     <Compile Include="AST\Expressions\IdentifierExpression.cs" />
