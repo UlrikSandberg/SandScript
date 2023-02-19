@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SandScript", "SandScript\SandScript.csproj", "{1AE6C8C6-6964-461D-A84B-6BE5CF456643}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SandScript.Language", "SandScript.Language\SandScript.Language.csproj", "{FBA1D919-C3C1-4DC8-AD9E-69FF5F6DCB5E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1AE6C8C6-6964-461D-A84B-6BE5CF456643}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1AE6C8C6-6964-461D-A84B-6BE5CF456643}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1AE6C8C6-6964-461D-A84B-6BE5CF456643}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1AE6C8C6-6964-461D-A84B-6BE5CF456643}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FBA1D919-C3C1-4DC8-AD9E-69FF5F6DCB5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBA1D919-C3C1-4DC8-AD9E-69FF5F6DCB5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FBA1D919-C3C1-4DC8-AD9E-69FF5F6DCB5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FBA1D919-C3C1-4DC8-AD9E-69FF5F6DCB5E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
