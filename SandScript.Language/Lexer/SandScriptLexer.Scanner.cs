@@ -58,11 +58,11 @@ public partial class SandScriptLexer
     private Token ScanWhiteSpace()
     {
         if (!IsWhiteSpace())
+            throw new LexicalException(nameof(ScanWhiteSpace), " ", Current.ToString());
+            
+        while (IsWhiteSpace())
         {
-            while (IsWhiteSpace())
-            {
-                Consume();
-            }
+            Consume();
         }
 
         return CreateToken(TokenType.Whitespace);
@@ -70,10 +70,60 @@ public partial class SandScriptLexer
 
     private Token ScanStringLiteral()
     {
-        return null;
+        if (!IsStringLiteral())
+            throw new LexicalException(nameof(ScanWhiteSpace), '"', Current);
+        
+        // Start by Advancing for the actual string literal value we do not want to include the initial '"'
+        Advance();
+
+        while (Current != '"')
+        {
+            // If we encounter EOF before ending quotation marks throw exception
+            if (IsEOF())
+                throw new LexicalException("Encountered unexpected end of file while scanning StringLiteral.");
+
+            // If we encounter backslash we should 
+            if (Current == '\\')
+            {
+                Advance();
+                char c = ScanEscapeSequence();
+                Advance();
+                tokenBuilder.Append(c);
+                continue;
+            }
+            
+            Consume();
+        }
+        
+        // End by advancing beyond the end '"' we dont want it to be part of the actual string value.
+        Advance();
+        
+        return CreateToken(TokenType.StringLiteral);
     }
 
-    // Somewhere in the lexical analysis we have encountered an unexpected char
+    private char ScanEscapeSequence()
+    {
+        switch (Current)
+        {
+            case '\\':
+                return '\\';
+            case 'n':
+                return '\n';
+            case 't':
+                return '\t';
+            case '"':
+                return '"';
+            case 'b':
+                return '\b';
+            case 'r':
+                return '\r';
+            
+            default:
+                return '\0';
+        }
+    }
+
+    // Somewhere in the lexical \n analysis we have encountered an unexpected char
     // Scan until we meet either whitespace, EOF or a punctuation. We will consume.
     private Token ScanUnexpectedToken(Severity severity = Severity.Fatal, string message = "Unexpected Token '{0}'")
     {
