@@ -101,6 +101,24 @@ public partial class SandScriptLexer
         return CreateToken(TokenType.StringLiteral);
     }
 
+    private Token ScanIdentifier()
+    {
+        if (!IsIdentifier())
+            throw new LexicalException(nameof(ScanIdentifier), "_ or alphanumeric", Current.ToString());
+        
+        while (IsLetterOrDigit() || Current == '_')
+        {
+            if (IsEOF())
+                throw new LexicalException("Encountered unexpected EOF");
+            
+            Consume();
+        }
+
+        return keywords.Contains(tokenBuilder.ToString())
+            ? CreateToken(TokenType.Keyword)
+            : CreateToken(TokenType.Identifier);
+    }
+    
     private char ScanEscapeSequence()
     {
         switch (Current)

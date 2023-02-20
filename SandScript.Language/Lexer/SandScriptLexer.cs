@@ -145,7 +145,12 @@ public partial class SandScriptLexer
             return ScanWhiteSpace();
 
         if (IsStringLiteral())
-            ScanStringLiteral();
+            return ScanStringLiteral();
+
+        if (IsIdentifier())
+            return ScanIdentifier();
+        
+        
         
         return ScanUnexpectedToken();
     }
@@ -155,4 +160,6 @@ public partial class SandScriptLexer
     private bool IsNewLine() => Current == '\n';
     private bool IsWhiteSpace() => (char.IsWhiteSpace(Current) || IsEOF()) && !IsNewLine();
     private bool IsStringLiteral() => Current == '"';
+    private bool IsIdentifier() => char.IsLetter(Current) || Current == '_';
+    private bool IsLetterOrDigit() => char.IsLetterOrDigit(Current);
 }
