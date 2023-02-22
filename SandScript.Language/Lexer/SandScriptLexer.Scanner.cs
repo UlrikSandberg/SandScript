@@ -323,9 +323,37 @@ public partial class SandScriptLexer
         }
     }
 
-    private Token ScanNumber()
+    private Token ScanNumber(bool scanningFloat)
     {
-        return null;
+        while (IsDigit())
+        {
+            Consume();
+        }
+
+        if (Current == 'f')
+        {
+            Advance();
+            return CreateToken(TokenType.FloatingPointLiteral);
+        }
+
+        if (!scanningFloat && Current == '.')
+        {
+            Consume();
+            return ScanNumber(true);
+        }
+        
+        // After consuming hex digits we expect there to be either whitespace eof or symbols
+        if (!IsEOF() && !IsWhiteSpace() && !IsPunctuation() && !IsOperator())
+        {
+            return ScanUnexpectedToken();
+        }
+
+        if (scanningFloat)
+        {
+            return CreateToken(TokenType.FloatingPointLiteral);
+        }
+
+        return CreateToken(TokenType.IntegerLiteral);
     }
 
     private Token ScanHex()

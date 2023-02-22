@@ -165,11 +165,12 @@ public partial class SandScriptLexer
             return ScanOctal();
 
         if (IsDigit())
-            return ScanNumber();
+            return ScanNumber(false);
         
         
         return ScanUnexpectedToken();
     }
+    
     private bool IsEOF() => Current == '\0';
     private bool IsComment() => Current == '/' && (Next == '/' || Next == '*');
     private bool IsNewLine() => Current == '\n';
