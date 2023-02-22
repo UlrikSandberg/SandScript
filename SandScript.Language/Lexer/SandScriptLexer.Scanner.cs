@@ -327,6 +327,52 @@ public partial class SandScriptLexer
     {
         return null;
     }
+
+    private Token ScanHex()
+    {
+        if (!IsHexadecimal())
+            throw new LexicalException(nameof(ScanHex), "0x", $"{Current}${Next}");
+        
+        // Consume both '0' and 'x'
+        Consume();
+        Consume();
+
+        while (IsHexDigit(Current))
+        {
+            Consume();
+        }
+        
+        // After consuming hex digits we expect there to be either whitespace eof or symbols
+        if (!IsEOF() && !IsWhiteSpace() && !IsPunctuation() && !IsOperator())
+        {
+            return ScanUnexpectedToken();
+        }
+
+        return CreateToken(TokenType.HexaDecimalNumericLiteral);
+    }
+
+    private Token ScanOctal()
+    {
+        if (!IsOctal())
+            throw new LexicalException(nameof(ScanOctal), "0c", $"{Current}${Next}");
+        
+        // Consume both '0' and 'c'
+        Consume();
+        Consume();
+
+        while (IsOctalDigit())
+        {
+            Consume();
+        }
+        
+        // After consuming octal digits we expect there to be either whitespace, eof etc
+        if (!IsEOF() && !IsWhiteSpace() && !IsPunctuation() && !IsOperator())
+        {
+            return ScanUnexpectedToken();
+        }
+
+        return CreateToken(TokenType.OctaDecimalNumericLiteral);
+    }
     
     private char ScanEscapeSequence()
     {

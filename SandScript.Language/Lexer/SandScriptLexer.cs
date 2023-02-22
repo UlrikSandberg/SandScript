@@ -157,6 +157,16 @@ public partial class SandScriptLexer
         
         if (IsOperator())
             return ScanOperator();
+
+        if (IsHexadecimal())
+            return ScanHex();
+
+        if (IsOctal())
+            return ScanOctal();
+
+        if (IsDigit())
+            return ScanNumber();
+        
         
         return ScanUnexpectedToken();
     }
@@ -169,5 +179,12 @@ public partial class SandScriptLexer
     private bool IsLetterOrDigit() => char.IsLetterOrDigit(Current);
     private bool IsPunctuation() => punctuation.Contains(Current);
     private bool IsOperator() => operators.Contains(Current);
-   
+    private bool IsOctal() => Current == '0' && Next == 'c';
+    private bool IsHexadecimal() => Current == '0' && Next == 'x';
+    private bool IsDigit() => !IsEOF() && char.IsDigit(Current);
+    private bool IsHexDigit(char ch) => !IsEOF() && ((ch >= '0' && ch <= '9')
+                                                     || (ch >= 'a' && ch <= 'f')
+                                                     || (ch >= 'A' && ch <= 'F'));
+
+    private bool IsOctalDigit() => Current is >= '0' and <= '7';
 }
