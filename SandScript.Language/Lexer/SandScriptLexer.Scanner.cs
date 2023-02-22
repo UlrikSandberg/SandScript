@@ -118,6 +118,215 @@ public partial class SandScriptLexer
             ? CreateToken(TokenType.Keyword)
             : CreateToken(TokenType.Identifier);
     }
+
+    private Token ScanOperator()
+    {
+        if (!IsOperator())
+            throw new LexicalException(nameof(ScanOperator), $"Expected on of '{operators}'", Current.ToString());
+
+        switch (Current)
+        {
+            case '+':
+                Consume();
+                if (Current == '=')
+                {
+                    Consume();
+                    return CreateToken(TokenType.AssignmentAddition);
+                }
+
+                if (Current == '+')
+                {
+                    Consume();
+                    return CreateToken(TokenType.PlusPlus);
+                }
+
+                return CreateToken(TokenType.Addition);
+            
+            case '-':
+                Consume();
+                if (Current == '=')
+                {
+                    Consume();
+                    return CreateToken(TokenType.AssignmentSubtraction);
+                }
+
+                if (Current == '-')
+                {
+                    Consume();
+                    return CreateToken(TokenType.MinusMinus);
+                }
+
+                return CreateToken(TokenType.AssignmentSubtraction);
+            
+            case '*':
+                Consume();
+                if (Current == '=')
+                {
+                    Consume();
+                    return CreateToken(TokenType.AssignmentMultiply);
+                }
+
+                if (Current == '*')
+                {
+                    Consume();
+                    return CreateToken(TokenType.MultMult);
+                }
+
+                return CreateToken(TokenType.Multiply);
+            
+            case '/':
+                Consume();
+                if (Current == '=')
+                {
+                    Consume();
+                    return CreateToken(TokenType.AssignmentDivide);
+                }
+
+                return CreateToken(TokenType.Divide);
+            
+            case '%':
+                Consume();
+                if (Current == '=')
+                {
+                    Consume();
+                    return CreateToken(TokenType.AssignmentModulo);
+                }
+
+                return CreateToken(TokenType.Modulo);
+            
+            case '=':
+                Consume();
+                if (Current == '>')
+                {
+                    return CreateToken(TokenType.FatArrow);
+                }
+
+                if (Current == '=')
+                {
+                    return CreateToken(TokenType.LogicalEqual);
+                }
+
+                return CreateToken(TokenType.Assignment);
+            
+            case '!':
+                Consume();
+                if (Current == '=')
+                {
+                    Consume();
+                    return CreateToken(TokenType.LogicalNotEqual);
+                }
+
+                return CreateToken(TokenType.LogicalNot);
+            
+            case '&':
+                Consume();
+                if (Current == '&')
+                {
+                    Consume();
+                    return CreateToken(TokenType.LogicalAnd);
+                }
+
+                return CreateToken(TokenType.BitwiseAnd);
+                
+            case '|':
+                Consume();
+                if (Current == '|')
+                {
+                    Consume();
+                    return CreateToken(TokenType.LogicalOr);
+                }
+
+                return CreateToken(TokenType.BitwiseOr);
+            
+            case '^':
+                Consume();
+                return CreateToken(TokenType.BitwiseXor);
+
+            case '?':
+                Consume();
+                return CreateToken(TokenType.QuestionMark);
+            
+            case ':':
+                Consume();
+                return CreateToken(TokenType.Colon);
+            
+            case '>':
+                Consume();
+                if (Current == '=')
+                {
+                    return CreateToken(TokenType.LogicalGreaterOrEqual);
+                }
+
+                if (Current == '>')
+                {
+                    return CreateToken(TokenType.BitwiseShiftRight);
+                }
+
+                return CreateToken(TokenType.LogicalGreater);
+            
+            case '<':
+                Consume();
+                if (Current == '=')
+                {
+                    return CreateToken(TokenType.LogicalLessOrEqual);
+                }
+
+                if (Current == '<')
+                {
+                    return CreateToken(TokenType.BitwiseShiftLeft);
+                }
+                
+                return CreateToken(TokenType.LogicalLess);
+            
+            default:
+                return ScanUnexpectedToken();
+        }
+    }
+
+    private Token ScanPunctuation()
+    {
+        if (!IsPunctuation())
+            throw new LexicalException(nameof(ScanPunctuation), $"Expected one of {punctuation}", Current.ToString());
+        
+        switch (Current)
+        {
+            case '{':
+                Consume();
+                return CreateToken(TokenType.OpenCurlyBracket);
+            case '}':
+                Consume();
+                return CreateToken(TokenType.CloseCurlyBracket);
+            case '[':
+                Consume();
+                return CreateToken(TokenType.OpenSquareBracket);
+            case ']':
+                Consume();
+                return CreateToken(TokenType.CloseSquareBracket);
+            case '(':
+                Consume();
+                return CreateToken(TokenType.OpenParenthesis);
+            case ')':
+                Consume();
+                return CreateToken(TokenType.CloseParenthesis);
+            case '.':
+                Consume();
+                return CreateToken(TokenType.Dot);
+            case ';':
+                Consume();
+                return CreateToken(TokenType.SemiColon);
+            case ',':
+                Consume();
+                return CreateToken(TokenType.Comma);
+            
+            default:
+                return ScanUnexpectedToken(Severity.Fatal, "Unexpected Token '{0}' - Expected punctuation" + punctuation);
+        }
+    }
+
+    private Token ScanNumber()
+    {
+        return null;
+    }
     
     private char ScanEscapeSequence()
     {

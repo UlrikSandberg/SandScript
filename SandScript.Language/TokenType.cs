@@ -32,6 +32,7 @@ public enum TokenType
     Comma,
     SemiColon,
     Colon,
+    QuestionMark,
     
     FatArrow,
     
@@ -44,24 +45,26 @@ public enum TokenType
     OpenCurlyBracket,
     CloseCurlyBracket,
     
-    // Arithmetic
+    // Arithmetic + - / * %
     Addition,
     Subtraction,
     Divide,
     Multiply,
+    Modulo,
     
     PlusPlus, // ++
     MinusMinus, // --
     MultMult, // **
 
-    // Assignment = += -= *= 
+    // Assignment: = += -= *= /= %=
     AssignmentAddition,
     AssignmentSubtraction,
     AssignmentMultiply,
     AssignmentDivide,
+    AssignmentModulo,
     Assignment,
     
-    // Logical - && ||
+    // Logical: < <= > >= == != || && !
     LogicalLess,
     LogicalLessOrEqual,
     LogicalGreater,
@@ -76,4 +79,6 @@ public enum TokenType
     BitwiseAnd,
     BitwiseOr,
     BitwiseXor,
+    BitwiseShiftLeft,
+    BitwiseShiftRight
 }

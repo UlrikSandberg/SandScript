@@ -49,6 +49,7 @@ public class Token
             case TokenType.Comma:
             case TokenType.SemiColon:
             case TokenType.Colon:
+            case TokenType.QuestionMark:    
             case TokenType.FatArrow:
             case TokenType.OpenParenthesis:
             case TokenType.CloseParenthesis:
@@ -62,6 +63,7 @@ public class Token
             case TokenType.Subtraction:
             case TokenType.Divide:
             case TokenType.Multiply:
+            case TokenType.Modulo:    
             case TokenType.PlusPlus:
             case TokenType.MinusMinus:
             case TokenType.MultMult:
@@ -72,6 +74,7 @@ public class Token
             case TokenType.AssignmentSubtraction:
             case TokenType.AssignmentMultiply:
             case TokenType.AssignmentDivide:
+            case TokenType.AssignmentModulo:    
                 return TokenCategory.Assignment;
             
             case TokenType.LogicalLess:

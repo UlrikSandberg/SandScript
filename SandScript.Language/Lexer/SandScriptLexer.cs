@@ -6,6 +6,8 @@ public partial class SandScriptLexer
 {
     public ErrorSink ErrorSink { get; }
 
+    private static string punctuation = "{}()[].;,";
+    private static string operators = "+-=%&|?:!><*/^";
     private static List<string> keywords = new()
     {
         // Conditional
@@ -149,12 +151,15 @@ public partial class SandScriptLexer
 
         if (IsIdentifier())
             return ScanIdentifier();
+
+        if (IsPunctuation())
+            return ScanPunctuation();
         
-        
+        if (IsOperator())
+            return ScanOperator();
         
         return ScanUnexpectedToken();
     }
-
     private bool IsEOF() => Current == '\0';
     private bool IsComment() => Current == '/' && (Next == '/' || Next == '*');
     private bool IsNewLine() => Current == '\n';
@@ -162,4 +167,7 @@ public partial class SandScriptLexer
     private bool IsStringLiteral() => Current == '"';
     private bool IsIdentifier() => char.IsLetter(Current) || Current == '_';
     private bool IsLetterOrDigit() => char.IsLetterOrDigit(Current);
+    private bool IsPunctuation() => punctuation.Contains(Current);
+    private bool IsOperator() => operators.Contains(Current);
+   
 }
