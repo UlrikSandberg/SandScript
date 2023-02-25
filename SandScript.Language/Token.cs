@@ -16,7 +16,6 @@ public class Token
         SourceSpan = new SourceSpan(sourceCode, start, end);
     }
 
-
     public TokenCategory GetCategory(TokenType type)
     {
         switch (type)
@@ -97,6 +96,11 @@ public class Token
                 return TokenCategory.None;
         }
     }
+
+    public static bool operator ==(Token left, TokenType right) => left.TokenType == right;
+    public static bool operator !=(Token left, TokenType right) => !(left == right);
+    public static bool operator ==(Token left, string right) => left.Value == right;
+    public static bool operator !=(Token left, string right) => !(left == right);
     
     public bool IsInvalid()
     {
@@ -106,5 +110,19 @@ public class Token
     public bool IsTrivia()
     {
         return TokenCategory == TokenCategory.Trivia;
+    }
+    
+
+    public override bool Equals(object? obj)
+    {
+        if (ReferenceEquals(null, obj)) return false;
+        if (ReferenceEquals(this, obj)) return true;
+        if (obj.GetType() != this.GetType()) return false;
+        return Equals((Token)obj);
+    }
+
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(Value, (int)TokenType, SourceCode, SourceSpan);
     }
 }

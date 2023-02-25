@@ -14,4 +14,11 @@ public class SourceSpan
         End = end;
         SourceCode = sourceCode;
     }
+
+    public override string ToString()
+    {
+        var lines = End.Line - Start.Line;
+        var length = End.Index - Start.Index;
+        return $"{lines} {length}";
+    }
 }

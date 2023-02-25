@@ -156,7 +156,7 @@ public partial class SandScriptLexer
                     return CreateToken(TokenType.MinusMinus);
                 }
 
-                return CreateToken(TokenType.AssignmentSubtraction);
+                return CreateToken(TokenType.Subtraction);
             
             case '*':
                 Consume();

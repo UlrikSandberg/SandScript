@@ -69,6 +69,18 @@ public partial class SandScriptLexer
         column++;
     }
 
+    public void Feed(string sourceCode)
+    {
+        if (IsEOF())
+        {
+            LoadSourceCode(new SourceCode(sourceCode));
+        }
+        else
+        {
+            this.sourceCode.Append(sourceCode);
+        }
+    }
+
     private void Consume()
     {
         tokenBuilder.Append(Current);
@@ -86,7 +98,7 @@ public partial class SandScriptLexer
     {
         this.sourceCode = sourceCode;
         tokenBuilder = new StringBuilder();
-        line = 0;
+        line = 1;
         column = 0;
         index = 0;
         previousTokenEndLocation = new SourceLocation(sourceCode, index, line, column);
@@ -100,6 +112,7 @@ public partial class SandScriptLexer
 
         // Move previousTokenEndLocation to this token.
         previousTokenEndLocation = sourceEnd;
+        tokenBuilder.Clear();
 
         return new Token(tokenValue, type, sourceCode, sourceStart, sourceEnd);
     }
@@ -128,6 +141,23 @@ public partial class SandScriptLexer
         
         // EOF encountered - return last token as EOF
         yield return CreateToken(TokenType.EOF);
+    }
+
+    public Token LexSingleToken(Func<Token, bool> predicate)
+    {
+        if (IsEOF())
+        {
+            return CreateToken(TokenType.EOF);
+        }
+        
+        var token = LexToken();
+
+        if (!predicate(token))
+        {
+            return LexSingleToken(predicate);
+        }
+
+        return token;
     }
     
     /**

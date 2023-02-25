@@ -1,5 +1,3 @@
-using System.ComponentModel;
-
 namespace SandScript.UnitTest.Language.Lexer;
 
 public class SandScriptLexer_Should
