@@ -6,4 +6,8 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\SandScript.Language\SandScript.Language.csproj" />
+    </ItemGroup>
+
 </Project>

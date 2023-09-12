@@ -1,38 +1,24 @@
-using SandScript.Language.Syntax;
+using SandScript.Language.Lexer;
 using SandScript.Language.Syntax.Declarations;
 
-namespace SandScript.Language.Parser;
-
-public partial class SandScriptParser
+namespace SandScript.Language.Parser
 {
-    private SyntaxNode ParseVariableDeclaration(bool allowDefault = true)
+    public partial class SandScriptParser
     {
-        string variableType;
-        string variableName;
-        SyntaxNode value = null;
-        
-        ParseTypeAndName(out variableType, out variableName, "var");
-
-        if (allowDefault && current == TokenType.Assignment)
+        private SyntaxNode ParseVariableDeclaration()
         {
-            Advance();
-            value = ParseExpression();
-        }
+            var type = Current.Value == "var" 
+                ? ConsumeToken(TokenType.Keyword).Value 
+                : ConsumeToken(TokenType.Identifier).Value;
+            
+            var name = ConsumeToken(TokenType.Identifier).Value;
+            
+            // Ingest the assignment token
+            ConsumeToken(TokenType.Assignment);
+            
+            var value = ParseExpression();
 
-        return new VariableDeclaration();
-    }
-
-    private void ParseTypeAndName(out string type, out string name, params string[] keyWords)
-    {
-        if (keyWords.Contains(current.Value))
-        {
-            type = ConsumeToken(TokenType.Keyword).Value;
+            return new VariableDeclaration(type, name, value);
         }
-        else
-        {
-            type = ConsumeToken(TokenType.Identifier).Value;
-        }
-
-        name = ConsumeToken(TokenType.Identifier).Value;
     }
 }

@@ -1,24 +1,39 @@
-using SandScript.Language.Syntax;
+using SandScript.Language.Lexer;
+using SandScript.Language.Syntax.Statements;
 
-namespace SandScript.Language.Parser;
-
-public partial class SandScriptParser
+namespace SandScript.Language.Parser
 {
-    private SyntaxNode ParseStatement()
+    public partial class SandScriptParser
     {
-        SyntaxNode node = null;
-        
-        // Start by going through all the different keywords
-        if (current == TokenType.Keyword)
+        public SyntaxNode ParseStatement()
         {
-            switch (current.Value)
+            if (Current.TokenType == TokenType.Keyword)
             {
-                case "var":
-                    node = ParseVariableDeclaration();
-                    break;
+                if (Current.Value == "var")
+                {
+                    return ParseVariableDeclaration();
+                }
+
+                if (Current.Value == "import")
+                {
+                    return ParseImportStatement();
+                }
+
+                throw new SyntaxException($"Keyword {Current.Value} not supported by the parser.");
             }
+
+            if (Current.TokenType == TokenType.Identifier)
+            {
+                return ParseExpression();
+            }
+
+            throw new SyntaxException($"Unexpected token: {Current.Value} when parsing statement");
         }
-        
-        return node;
+
+        public SyntaxNode ParseImportStatement()
+        {
+            ConsumeToken(TokenType.Keyword);
+            return new ImportStatement(ConsumeToken(TokenType.Identifier).Value);
+        }
     }
 }

@@ -1,97 +1,61 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using SandScript.Language.Lexer;
-using SandScript.Language.Syntax;
 
-namespace SandScript.Language.Parser;
-
-public partial class SandScriptParser
+namespace SandScript.Language.Parser
 {
-    private readonly SandScriptLexer _lexer;
-
-    private Token last;
-    private Token current;
-    private Token next;
-    
-    public SandScriptParser() : this(new SandScriptLexer()) { }
-
-    public SandScriptParser(SandScriptLexer lexer)
+    public partial class SandScriptParser
     {
-        _lexer = lexer;
-    }
+        private readonly SandScriptLexer _sandScriptLexer;
 
-    private void Advance()
-    {
-        last = current;
-        current = next;
-        next = _lexer.LexSingleToken(token => !token.IsTrivia());
-    }
+        private List<Token> tokens = new();
+        private int index = 1;
 
-    private T Advance<T>(Func<T> action)
-    {
-        var result = action();
-        Advance();
-        return result;
-    }
-
-    private Token ConsumeToken(TokenType type)
-    {
-        if (current != type)
-            throw UnexpectedToken(type.ToString().ToLower());
+        private Token Current => tokens[index];
+        private Token Next => tokens[index + 1 == tokens.Count ? index : index + 1];
+        private Token Last => tokens[index == 0 ? 0 : index - 1];
         
-        Advance();
-        return last;
-    }
-
-    /// <summary>
-    /// Populate Current and next variables with a token
-    /// </summary>
-    private void InitializeParsing()
-    {
-        Advance();
-        Advance();
-    }
-    
-    public SourceRoot ParseScript(string source)
-    {
-        _lexer.Feed(source);
-        InitializeParsing();
-        var rootNodes = new List<SyntaxNode>();
-
-        try
+        public SandScriptParser()
         {
-            while (current != TokenType.EOF)
+            _sandScriptLexer = new SandScriptLexer();
+        }
+
+        public SyntaxNode ParseScript(string sourceCode)
+        {
+            InitializeParser(_sandScriptLexer.LexSourceCode(sourceCode).Where(t => t.TokenCategory != TokenCategory.Trivia));
+
+            var rootNodes = new List<SyntaxNode>();
+            
+            while (Current != TokenType.EOF)
             {
-                if (current == "import")
-                {
-                    // Parse import statement
-                } 
-                else if (current == "public" || current == "private" || current == "protected" || current == "class")
-                {
-                    // parse class or method
-                }
-                else
-                {
-                    // Parse singular statements
-                    rootNodes.Add(ParseStatement());
-                }
+                rootNodes.Add(ParseStatement());
             }
+            
+            return new SyntaxRoot(rootNodes);
         }
-        catch (SyntaxException)
+
+        private void InitializeParser(IEnumerable<Token> tokens)
         {
-            throw;
+            this.tokens = new List<Token>(tokens);
+            index = 1;
         }
 
-        return new SourceRoot(rootNodes);
-    }
+        private Token ConsumeToken(TokenType tokenType)
+        {
+            if (Current.TokenType != tokenType)
+                throw new SyntaxException("Unexpected token");
+            
+            var current = Current;
+            index++;
+            return current;
+        }
 
-    private SyntaxException UnexpectedToken(string expected)
-    {
-        string message = $"{current.SourceSpan.Start} {current.SourceSpan} Unexpected Token '{current.Value}'. Expected {expected}";
-        return new SyntaxException(message);
-    }
-    
-    private SyntaxException UnexpectedToken(Token value, string expected)
-    {
-        string message = $"{value.SourceSpan.Start} {value.SourceSpan} Unexpected Token '{value.Value}'. Expected {expected}";
-        return new SyntaxException(message);
+        private T ConsumeToken<T>(Func<T> func)
+        {
+            var current = func();
+            index++;
+            return current;
+        }
     }
 }

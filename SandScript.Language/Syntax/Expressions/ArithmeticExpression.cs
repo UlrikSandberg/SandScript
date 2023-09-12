@@ -1,24 +1,19 @@
-namespace SandScript.Language.Syntax.Expressions;
+using SandScript.Language.Parser;
+using SandScript.Language.Syntax.Expressions.Enums;
 
-public enum ArithmeticOperation
+namespace SandScript.Language.Syntax.Expressions
 {
-    Add,
-    Subtract,
-    Multiply,
-    Divide,
-    Modulo
-}
-
-public class ArithmeticExpression : Expression
-{
-    public Expression Left { get; }
-    public Expression Right { get; }
-    public ArithmeticOperation OperatorType { get; }
-
-    public ArithmeticExpression(Expression left, Expression right, ArithmeticOperation operatorType)
+    public class ArithmeticExpression : Expression
     {
-        Left = left;
-        Right = right;
-        OperatorType = operatorType;
+        public SyntaxNode Left { get; }
+        public SyntaxNode Right { get; }
+        public ArithmeticOperator ArithmeticOperator { get; }
+
+        public ArithmeticExpression(SyntaxNode left, SyntaxNode right, ArithmeticOperator arithmeticOperator)
+        {
+            Left = left;
+            Right = right;
+            ArithmeticOperator = arithmeticOperator;
+        }
     }
 }
